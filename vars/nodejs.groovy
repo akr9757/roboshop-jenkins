@@ -24,13 +24,13 @@ def call() {
                 }
             }
 
-            stage('checkmarx sast scan') {
+            stage('Checkmarx SAST Scan') {
                 steps {
                     sh 'echo Checkmarx scan'
                 }
             }
 
-            stage('checkmarx sca scan') {
+            stage('Checkmarx SCA Scan') {
                 steps {
                     sh 'checkmarx sca scan'
                 }
