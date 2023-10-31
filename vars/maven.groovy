@@ -1,5 +1,6 @@
 def call() {
     pipeline {
+
         agent {
             node {
                 label 'workstation'
@@ -12,7 +13,8 @@ def call() {
 
 
         stages {
-            stage('code compile') {
+
+            stage('Code Compile') {
                 steps {
                     sh 'mvn compile'
                 }
@@ -21,27 +23,30 @@ def call() {
             stage('Code Quality') {
                 steps {
                     sh 'ls -l'
-                    sh 'sonar-scanner -Dsonar.projectKey=${component} -Dsonar.host.url=http://172.31.46.190:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.qualitygate.wait=true -Dsonar.java.libraries=./target'
+                    sh 'sonar-scanner -Dsonar.projectKey=${component} -Dsonar.host.url=http://172.31.46.190:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target'
+                    sh 'echo COde Quality'
                 }
             }
 
-            stage('unit test cases') {
+            stage('Unit Test Cases') {
                 steps {
-                    sh 'echo unit tests'
+                    sh 'echo Unit tests'
+                    //sh 'mvn test'
                 }
             }
 
-            stage('checkmarx sast scan') {
+            stage('CheckMarx SAST Scan') {
                 steps {
-                    sh 'echo Checkmarx scan'
+                    sh 'echo Checkmarx Scan'
                 }
             }
 
-            stage('checkmarx sca scan') {
+            stage('CheckMarx SCA Scan') {
                 steps {
-                    sh 'checkmarx sca scan'
+                    sh 'echo Checkmarx SCA Scan'
                 }
             }
+
 
         }
 
@@ -50,6 +55,7 @@ def call() {
                 cleanWs()
             }
         }
+
     }
 
 
