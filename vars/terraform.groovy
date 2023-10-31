@@ -10,8 +10,10 @@ def call() {
             ansiColor('xterm')
         }
 
+
         parameters {
             choice(name: 'env', choices: ['dev', 'prod'], description: 'Pick environment')
+            choice(name: 'action', choices: ['apply', 'destroy'], description: 'Pick Action')
         }
 
         stages {
@@ -21,9 +23,9 @@ def call() {
                 }
             }
 
-            stage('Terraform Apply') {
+            stage('Terraform Apply Or Destroy') {
                 steps {
-                    sh 'terraform apply -auto-approve -var-file=env-${env}/main.tfvars'
+                    sh 'terraform ${action} -auto-approve -var-file=env-${env}/main.tfvars'
                 }
             }
         }
