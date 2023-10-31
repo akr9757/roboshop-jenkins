@@ -1,5 +1,6 @@
 def call() {
     pipeline {
+
         agent {
             node {
                 label 'workstation'
@@ -12,6 +13,7 @@ def call() {
 
 
         stages {
+
             stage('Code Quality') {
                 steps {
                     sh 'ls -l'
@@ -19,23 +21,25 @@ def call() {
                 }
             }
 
-            stage('unit test cases') {
+            stage('Unit Test Cases') {
                 steps {
-                    sh 'echo unit tests'
+                    sh 'echo Unit tests'
+                    sh 'python3.6 -m unittest'
                 }
             }
 
-            stage('checkmarx sast scan') {
+            stage('CheckMarx SAST Scan') {
                 steps {
-                    sh 'echo Checkmarx scan'
+                    sh 'echo Checkmarx Scan'
                 }
             }
 
-            stage('checkmarx sca scan') {
+            stage('CheckMarx SCA Scan') {
                 steps {
-                    sh 'checkmarx sca scan'
+                    sh 'echo Checkmarx SCA Scan'
                 }
             }
+
 
         }
 
@@ -44,6 +48,7 @@ def call() {
                 cleanWs()
             }
         }
+
     }
 
 
