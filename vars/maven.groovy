@@ -14,14 +14,14 @@ def call() {
         stages {
             stage('code compile') {
                 steps {
-                    sh 'echo code compile'
+                    sh 'mvn compile'
                 }
             }
 
             stage('Code Quality') {
                 steps {
                     sh 'ls -l'
-                    sh 'sonar-scanner -Dsonar.projectKey=${component} -Dsonar.host.url=http://172.31.46.190:9000 -Dsonar.login=admin -Dsonar.password=admin123'
+                    sh 'sonar-scanner -Dsonar.projectKey=${component} -Dsonar.host.url=http://172.31.46.190:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.qualitygate.wait=true'
                 }
             }
 
