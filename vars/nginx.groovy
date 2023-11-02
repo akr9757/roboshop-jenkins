@@ -20,16 +20,15 @@ def call() {
 
             stage('Code Quality') {
                 steps {
-//                    sh 'ls -l'
-//                    sh 'sonar-scanner -Dsonar.projectKey=${component} -Dsonar.host.url=http://172.31.46.190:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.qualitygate.wait=true'
-                    sh 'echo code quality'
+                    //sh 'sonar-scanner -Dsonar.projectKey=${component} -Dsonar.host.url=http://172.31.8.27:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.qualitygate.wait=true'
+                    sh 'echo Code Quality'
                 }
             }
 
             stage('Unit Test Cases') {
                 steps {
                     sh 'echo Unit tests'
-//                    sh 'npm test'
+                    //sh 'npm test'
                 }
             }
 
@@ -54,9 +53,12 @@ def call() {
                 steps {
                     sh 'echo $TAG_NAME >VERSION'
                     sh 'zip -r ${component}-${TAG_NAME}.zip *'
+                    // Deleting this file as it is not needed.
                     sh 'zip -d ${component}-${TAG_NAME}.zip Jenkinsfile'
                     sh 'curl -v -u ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${component}-${TAG_NAME}.zip http://172.31.46.188:8081/repository/${component}/${component}-${TAG_NAME}.zip'
+                }
             }
+
 
         }
 
@@ -69,4 +71,4 @@ def call() {
     }
 
 
-}
+ }
